@@ -1,5 +1,5 @@
 <template>
-  <PublicLayout>
+  <PublicLayout active-page="realtime" force-scrolled>
     <div class="space-y-8">
 
       <!-- ══ Page Header ════════════════════════════ -->
@@ -203,9 +203,9 @@
                   <div class="text-[9px] font-bold uppercase tracking-wide text-on-surface-variant">MRPS</div>
                   <div class="mt-0.5 text-xs font-bold text-on-surface">{{ formatVal(item.mrps) }}</div>
                 </div>
-                <div class="rounded-xl bg-emerald-50 border border-emerald-100 p-2 text-center dark:bg-emerald-950/20 dark:border-emerald-900/30">
-                  <div class="text-[9px] font-bold uppercase tracking-wide text-emerald-600">C ton</div>
-                  <div class="mt-0.5 text-xs font-bold text-emerald-700 dark:text-emerald-400">{{ formatVal(item.carbon) }}</div>
+                <div class="rounded-xl bg-surface-container p-2 text-center">
+                  <div class="text-[9px] font-bold uppercase tracking-wide text-on-surface-variant">C ton</div>
+                  <div class="mt-0.5 text-xs font-bold text-on-surface">{{ item.carbon !== null && item.carbon !== undefined ? Math.round(item.carbon) : '–' }}</div>
                 </div>
               </div>
 

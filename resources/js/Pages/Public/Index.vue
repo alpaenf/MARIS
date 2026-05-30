@@ -67,39 +67,36 @@
     </header>
 
     <main>
-      <!-- ── 1. HERO ── -->
-      <section id="home" class="relative -mt-24 flex min-h-[680px] items-center justify-center overflow-hidden pt-24">
+         <!-- ── 1. HERO ── -->
+      <section id="home" class="relative -mt-24 flex min-h-[600px] items-center justify-center overflow-hidden pt-36 pb-12">
         <div class="absolute inset-0">
           <img
             class="h-full w-full object-cover"
             alt="Hutan mangrove di pesisir Jawa Tengah"
             src="/herobanner.gif"
           />
-          <div class="absolute inset-0 bg-gradient-to-r from-primary/80 via-primary/50 to-primary/10"></div>
+          <div class="absolute inset-0 bg-gradient-to-r from-emerald-950/90 via-teal-900/70 to-emerald-950/90"></div>
         </div>
 
-        <div class="relative z-10 mx-auto flex max-w-5xl flex-col items-center px-6 text-center text-on-primary">
-          <span class="mb-6 inline-flex items-center gap-2 rounded-full border border-on-primary/30 bg-on-primary/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em]">
-            SDG 13: Climate Action
-          </span>
-          <h1 class="text-shadow-soft text-3xl font-bold leading-tight sm:text-5xl lg:text-6xl">
-            AI-Driven Mangrove Restoration
-            <span class="block text-primary-fixed-dim">untuk Ketahanan Pesisir</span>
+        <div class="relative z-10 mx-auto flex max-w-5xl flex-col items-center px-6 text-center text-white">
+          <h1 class="text-shadow-soft text-4xl font-extrabold leading-tight sm:text-6xl lg:text-7xl tracking-tight">
+            MARIS 2.0
+            <span class="block text-emerald-300 font-medium text-2xl sm:text-3xl mt-3 tracking-wide">Mangrove Risk Intelligence & Climate Forecasting System</span>
           </h1>
-          <p class="mt-6 max-w-2xl text-base text-on-primary/80 sm:text-lg leading-relaxed">
-            Menguatkan Pantura Jawa Tengah lewat analisis risiko iklim IPCC AR6, simulasi karbon Tier-2,
-            dan rekomendasi kebijakan berbasis AI.
+          <p class="mt-6 max-w-3xl text-sm text-white/80 sm:text-base leading-relaxed">
+            Sistem inteligensi mitigasi pesisir Pantura Jawa Tengah terintegrasi. Menggabungkan model prediksi 
+            garis pantai AI, penaksir ketahanan mangrove ML, penaksir karbon Tier-2 IPCC, dan sistem pakar berbasis aturan.
           </p>
           <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
             <a
-              class="group inline-flex items-center gap-2 rounded-full bg-on-primary px-7 py-3.5 text-sm font-semibold text-primary shadow-btn transition-all hover:bg-surface-container active:scale-95"
-              href="/dashboard"
+              class="group inline-flex items-center gap-2 rounded-full bg-emerald-500 px-8 py-4 text-xs font-black uppercase tracking-wider text-white shadow-lg transition-all hover:bg-emerald-600 active:scale-95 hover:shadow-emerald-500/20"
+              href="/realtime"
             >
-              Explore Impact
+              Jelajahi Dashboard EWS
               <span class="material-symbols-outlined text-base leading-none transition-transform group-hover:translate-x-1">arrow_forward</span>
             </a>
             <a
-              class="inline-flex items-center gap-2 rounded-full border border-on-primary/40 bg-on-primary/10 px-7 py-3.5 text-sm font-semibold text-on-primary transition-all hover:bg-on-primary/20"
+              class="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-8 py-4 text-xs font-black uppercase tracking-wider text-white transition-all hover:bg-white/20 backdrop-blur-sm"
               href="#about"
             >
               Latar Belakang
@@ -113,62 +110,84 @@
         <!-- Latar Belakang Text -->
         <div class="grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
-            <p class="text-[10px] font-semibold uppercase tracking-[0.25em] text-primary">Latar Belakang</p>
-            <h2 class="mt-2 text-2xl font-bold text-on-surface sm:text-3xl">Mengapa MARIS Lahir?</h2>
+            <p class="text-[10px] font-bold uppercase tracking-[0.25em] text-emerald-600">Latar Belakang & Krisis</p>
+            <h2 class="mt-2 text-2xl font-extrabold text-on-surface sm:text-3xl">Mitigasi Abrasi Pantura Jawa Tengah</h2>
             <p class="mt-4 text-sm text-on-surface-variant leading-relaxed">
-              Kawasan pesisir Pantai Utara (Pantura) Jawa Tengah, khususnya Demak dan Pekalongan, mengalami degradasi ekologi yang sangat kritis akibat abrasi ekstrem, penurunan permukaan tanah (land subsidence), dan banjir rob harian.
+              Kawasan pesisir Pantai Utara (Pantura) Jawa Tengah mengalami degradasi ekologi yang sangat kritis akibat abrasi ekstrem, penurunan permukaan tanah (land subsidence), dan banjir rob harian. Demak (Sayung, Bedono) dan Pekalongan (Tirto) adalah salah satu wilayah dengan tingkat kerentanan tertinggi.
             </p>
             <p class="mt-3 text-sm text-on-surface-variant leading-relaxed">
-              Mangrove merupakan perisai alamiah terbaik. Namun, restorasi manual sering kali gagal karena kurangnya data parameter lingkungan yang presisi. MARIS dirancang untuk menjembatani kesenjangan ini dengan mengintegrasikan data lapangan menggunakan model AI dan sistem pakar untuk merekomendasikan spesies penanaman yang paling adaptif.
+              Mangrove merupakan perisai alamiah terbaik. Namun, restorasi manual sering kali gagal karena kurangnya presisi data parameter lingkungan dan ketidaksesuaian penanaman spesies. MARIS 2.0 hadir membawa <strong>5 Core AI & ML Engines</strong> untuk menyajikan kalkulasi kerentanan berbasis data satelit dan sensor realtime BMKG.
             </p>
           </div>
           <div class="space-y-4 rounded-3xl border border-outline-variant bg-surface-container-lowest p-6 shadow-card">
             <h3 class="text-sm font-bold text-on-surface flex items-center gap-1.5 mb-2">
-              <span class="material-symbols-outlined text-primary text-base">eco</span> Fokus Utama Penelitian MARIS
+              <span class="material-symbols-outlined text-emerald-600 text-base">eco</span> Kerangka Ilmiah MARIS 2.0
             </h3>
             <div class="space-y-4">
-              <div class="border-l-4 border-primary pl-4">
-                <div class="text-xs font-bold text-on-surface">SDG 13 & 14: Penanganan Perubahan Iklim</div>
+              <div class="border-l-4 border-emerald-500 pl-4">
+                <div class="text-xs font-bold text-on-surface">Mitigasi Perubahan Iklim (SDG 13)</div>
                 <p class="text-[11px] text-on-surface-variant mt-1">Mengakselerasi restorasi hutan mangrove pesisir sebagai benteng tangguh mitigasi bencana rob.</p>
               </div>
-              <div class="border-l-4 border-secondary pl-4">
-                <div class="text-xs font-bold text-on-surface">Blue Carbon Sequestration (Tier-2)</div>
-                <p class="text-[11px] text-on-surface-variant mt-1">Mengukur kontribusi riil penyerapan emisi karbon oleh ekosistem mangrove di Pantura secara ilmiah.</p>
+              <div class="border-l-4 border-teal-500 pl-4">
+                <div class="text-xs font-bold text-on-surface">Blue Carbon Sequestration (Tier-2 IPCC)</div>
+                <p class="text-[11px] text-on-surface-variant mt-1">Mengukur kontribusi riil penyerapan emisi karbon oleh ekosistem mangrove di Pantura secara ilmiah menggunakan koefisien lokal.</p>
               </div>
-              <div class="border-l-4 border-tertiary pl-4">
-                <div class="text-xs font-bold text-on-surface">Data-Driven Policy Brief</div>
+              <div class="border-l-4 border-emerald-700 pl-4">
+                <div class="text-xs font-bold text-on-surface">Aksi Kebijakan Terstandardisasi</div>
                 <p class="text-[11px] text-on-surface-variant mt-1">Menyajikan dokumen rekomendasi kebijakan (policy brief) otomatis yang disokong data konkret.</p>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Crisis Numbers -->
+        <!-- 5 Core AI Engines Showcase -->
         <div class="border-t border-outline-variant pt-16">
-          <div class="text-center mb-10">
-            <span class="text-[10px] font-semibold uppercase tracking-[0.25em] text-on-surface-variant">Urgensi Lapangan</span>
-            <h3 class="text-xl font-bold text-on-surface mt-1">Krisis Pesisir Pantura Jawa Tengah</h3>
+          <div class="text-center mb-12">
+            <span class="text-[10px] font-bold uppercase tracking-[0.25em] text-emerald-600">Teknologi Mutakhir</span>
+            <h3 class="text-2xl font-extrabold text-on-surface mt-1">5 Core AI & ML Engines MARIS 2.0</h3>
+            <p class="mt-2 text-xs text-on-surface-variant max-w-xl mx-auto">Model kecerdasan buatan deterministik dan prediktif berstandar nasional untuk mitigasi pesisir.</p>
           </div>
-          <div class="grid gap-5 md:grid-cols-3">
-            <!-- Stat 1 -->
-            <div class="relative overflow-hidden rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-card md:col-span-2">
-              <div class="pointer-events-none absolute -right-4 -top-4 text-7xl font-black text-error/8 select-none">%</div>
-              <div class="relative">
-                <div class="text-4xl font-bold text-error">5,500+</div>
-                <div class="mt-2 text-base font-semibold text-on-surface">Hektare Lahan Pesisir Tenggelam</div>
-                <p class="mt-2 text-sm text-on-surface-variant">
-                  Sejak tahun 2000, abrasi ekstrem dan genangan rob telah menenggelamkan ribuan hektare daratan dan memutus ekonomi tambak.
-                </p>
+          
+          <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
+            <!-- Core 1 -->
+            <div class="rounded-2xl border border-outline-variant bg-surface-container-lowest p-5 shadow-card hover:-translate-y-1 transition-all duration-300">
+              <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700 mb-4">
+                <span class="material-symbols-outlined text-lg">timeline</span>
               </div>
+              <h4 class="text-xs font-bold text-on-surface">AI Shoreline Forecasting</h4>
+              <p class="mt-2 text-[10px] text-on-surface-variant leading-relaxed">Prediksi kemunduran garis pantai Pantura menggunakan Holt's Double Exponential Smoothing 7 hari ke depan.</p>
             </div>
-            <!-- Stat 2 -->
-            <div class="flex flex-col justify-between rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-card">
-              <div class="flex h-12 w-12 items-center justify-center rounded-full bg-error/10 text-error text-xl font-bold">!</div>
-              <div>
-                <div class="text-2xl font-bold text-on-surface">Harian</div>
-                <div class="mt-1 text-[10px] font-semibold uppercase tracking-[0.25em] text-on-surface-variant">Genangan ROB</div>
-                <p class="mt-2 text-sm text-on-surface-variant">Banjir pasang laut masuk ke jalanan dan rumah, melumpuhkan infrastruktur vital warga.</p>
+            <!-- Core 2 -->
+            <div class="rounded-2xl border border-outline-variant bg-surface-container-lowest p-5 shadow-card hover:-translate-y-1 transition-all duration-300">
+              <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-teal-50 text-teal-700 mb-4">
+                <span class="material-symbols-outlined text-lg">psychology</span>
               </div>
+              <h4 class="text-xs font-bold text-on-surface">AI Mangrove Survival</h4>
+              <p class="mt-2 text-[10px] text-on-surface-variant leading-relaxed">Estimasi persentase kelangsungan hidup bibit mangrove berdasarkan substrat tanah, salinitas, dan tinggi pasang air laut.</p>
+            </div>
+            <!-- Core 3 -->
+            <div class="rounded-2xl border border-outline-variant bg-surface-container-lowest p-5 shadow-card hover:-translate-y-1 transition-all duration-300">
+              <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-800 mb-4">
+                <span class="material-symbols-outlined text-lg">co2</span>
+              </div>
+              <h4 class="text-xs font-bold text-on-surface">AI Blue Carbon Forecast</h4>
+              <p class="mt-2 text-[10px] text-on-surface-variant leading-relaxed">Model regresi linier memproyeksikan pelepasan emisi karbon biru akibat degradasi lahan pesisir hingga 10 tahun ke depan.</p>
+            </div>
+            <!-- Core 4 -->
+            <div class="rounded-2xl border border-outline-variant bg-surface-container-lowest p-5 shadow-card hover:-translate-y-1 transition-all duration-300">
+              <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-teal-50 text-teal-800 mb-4">
+                <span class="material-symbols-outlined text-lg">priority_high</span>
+              </div>
+              <h4 class="text-xs font-bold text-on-surface">AI Restoration Priority</h4>
+              <p class="mt-2 text-[10px] text-on-surface-variant leading-relaxed">Mesin prioritas penentuan zonasi rehabilitasi pesisir berbasis kalkulasi indeks kerentanan iklim IPCC AR6.</p>
+            </div>
+            <!-- Core 5 -->
+            <div class="rounded-2xl border border-outline-variant bg-surface-container-lowest p-5 shadow-card hover:-translate-y-1 transition-all duration-300">
+              <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-900 mb-4">
+                <span class="material-symbols-outlined text-lg">tsunami</span>
+              </div>
+              <h4 class="text-xs font-bold text-on-surface">Climate Impact Simulator</h4>
+              <p class="mt-2 text-[10px] text-on-surface-variant leading-relaxed">Simulasi dinamis dampak kenaikan permukaan air laut terhadap luasan mangrove dan kerugian valuasi ekonomi di 5 daerah.</p>
             </div>
           </div>
         </div>
@@ -178,10 +197,10 @@
       <section id="workflow" class="border-y border-outline-variant bg-surface-container-low py-24 scroll-reveal" data-animate>
         <div class="mx-auto max-w-6xl px-6">
           <div class="mx-auto mb-16 max-w-3xl text-center">
-            <p class="text-[10px] font-semibold uppercase tracking-[0.25em] text-primary">Sistem Operasional</p>
-            <h2 class="mt-2 text-2xl font-bold text-on-surface sm:text-3xl">Alur Kerja Sistem MARIS</h2>
+            <p class="text-[10px] font-bold uppercase tracking-[0.25em] text-emerald-600">Sistem Operasional</p>
+            <h2 class="mt-2 text-2xl font-bold text-on-surface sm:text-3xl">Alur Kerja Ilmiah MARIS 2.0</h2>
             <p class="mt-3 text-sm text-on-surface-variant sm:text-base leading-relaxed">
-              Bagaimana data lapangan diproses secara ilmiah hingga menghasilkan dokumen kebijakan yang siap aksi.
+              Bagaimana data realtime diproses secara deterministik hingga menghasilkan dokumen kebijakan yang siap aksi.
             </p>
           </div>
 
@@ -191,15 +210,15 @@
               <!-- Step 1 -->
               <div class="workflow-step relative rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-card space-y-4">
                 <div class="flex items-center gap-3">
-                  <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary font-black text-sm">
+                  <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700 font-black text-sm">
                     01
                   </div>
                   <div class="text-[10px] font-semibold uppercase tracking-[0.25em] text-on-surface-variant">Langkah 1</div>
                 </div>
                 <div>
-                  <h3 class="text-sm font-bold text-on-surface">Input Survei / Dataset</h3>
+                  <h3 class="text-sm font-bold text-on-surface">Ingest Data BMKG & IoT</h3>
                   <p class="mt-2 text-xs text-on-surface-variant leading-relaxed">
-                    Analis memasukkan data survei pesisir (abrasi, rob, kerapatan) atau memilih dataset Pantura yang tersedia.
+                    Sistem otomatis mengunggah data pasang surut, tinggi gelombang, dan curah hujan dari BMKG secara berkala.
                   </p>
                 </div>
               </div>
@@ -207,15 +226,15 @@
               <!-- Step 2 -->
               <div class="workflow-step relative rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-card space-y-4">
                 <div class="flex items-center gap-3">
-                  <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-secondary/10 text-secondary font-black text-sm">
+                  <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-teal-50 text-teal-700 font-black text-sm">
                     02
                   </div>
                   <div class="text-[10px] font-semibold uppercase tracking-[0.25em] text-on-surface-variant">Langkah 2</div>
                 </div>
                 <div>
-                  <h3 class="text-sm font-bold text-on-surface">Kalkulasi IPCC AR6</h3>
+                  <h3 class="text-sm font-bold text-on-surface">Kalkulasi Indeks Kebencanaan</h3>
                   <p class="mt-2 text-xs text-on-surface-variant leading-relaxed">
-                    Server lokal menghitung skor Hazard, Exposure, Vulnerability, MCVI, MRPS, dan karbon Tier-2 secara deterministik.
+                    Server menghitung indeks kerentanan pesisir (MCVI), indeks prioritas restorasi (MRPS), dan stok karbon biru Tier-2 secara objektif.
                   </p>
                 </div>
               </div>
@@ -223,15 +242,15 @@
               <!-- Step 3 -->
               <div class="workflow-step relative rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-card space-y-4">
                 <div class="flex items-center gap-3">
-                  <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-tertiary/10 text-tertiary font-black text-sm">
+                  <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-800 font-black text-sm">
                     03
                   </div>
                   <div class="text-[10px] font-semibold uppercase tracking-[0.25em] text-on-surface-variant">Langkah 3</div>
                 </div>
                 <div>
-                  <h3 class="text-sm font-bold text-on-surface">Narasi XAI (Gemini AI)</h3>
+                  <h3 class="text-sm font-bold text-on-surface">Explainable AI (XAI) Layer</h3>
                   <p class="mt-2 text-xs text-on-surface-variant leading-relaxed">
-                    Gemini XAI Layer menganalisis angka kalkulasi untuk menyusun narasi penjelasan ilmiah dan rekomendasi kebijakan terstruktur.
+                    Gemini AI menganalisis hasil kalkulasi numerik dan menyusun policy brief serta penjelasan ilmiah terstandardisasi.
                   </p>
                 </div>
               </div>
@@ -239,15 +258,15 @@
               <!-- Step 4 -->
               <div class="workflow-step relative rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-card space-y-4">
                 <div class="flex items-center gap-3">
-                  <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary font-black text-sm">
+                  <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-teal-50 text-teal-800 font-black text-sm">
                     04
                   </div>
                   <div class="text-[10px] font-semibold uppercase tracking-[0.25em] text-on-surface-variant">Langkah 4</div>
                 </div>
                 <div>
-                  <h3 class="text-sm font-bold text-on-surface">Visualisasi & Laporan</h3>
+                  <h3 class="text-sm font-bold text-on-surface">Visualisasi & Aksi Restorasi</h3>
                   <p class="mt-2 text-xs text-on-surface-variant leading-relaxed">
-                    Laporan disajikan dalam bentuk peta interaktif spasial dan siap diunduh sebagai dokumen PDF Policy Brief.
+                    Visualisasi terintegrasi disajikan kepada pemangku kebijakan untuk panduan aksi penanaman di lapangan.
                   </p>
                 </div>
               </div>
