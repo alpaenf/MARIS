@@ -1,0 +1,17 @@
+region_name,province,area_size,rainfall,abrasion_level,flood_risk,mangrove_loss,population_density,climate_risk_score,restoration_priority,carbon_potential
+Mimika,Papua Tengah,304500,2400,32,45,12,850,42,Sedang,639450
+Kubu Raya,Kalimantan Barat,148200,2800,55,60,25,1200,58,Sedang,311220
+Kutai Kartanegara,Kalimantan Timur,239800,2100,40,38,18,950,48,Sedang,503580
+Bengkalis,Riau,230400,2300,75,70,42,1600,74,Tinggi,483840
+Tanjung Jabung Barat,Jambi,25600,2150,68,62,35,1100,65,Tinggi,53760
+Cilacap,Jawa Tengah,1500,1800,82,85,68,3400,86,Tinggi,3150
+Deli Serdang,Sumatera Utara,8400,2200,70,72,50,2200,72,Tinggi,17640
+Banyuasin,Sumatera Selatan,112000,2500,48,55,22,1050,52,Sedang,235200
+Pekalongan,Jawa Tengah,120,1750,90,92,85,3800,94,Tinggi,252
+Langkat,Sumatera Utara,35000,2100,62,65,40,1400,66,Tinggi,73500
+Berau,Kalimantan Timur,86000,2250,35,30,15,650,40,Sedang,180600
+Asmat,Papua Selatan,623000,2600,20,38,5,450,30,Sedang,1308300
+Halmahera Barat,Maluku Utara,42000,2100,45,48,18,720,46,Sedang,88200
+Manokwari,Papua Barat,326000,2500,25,35,8,550,32,Sedang,684600
+Indramayu,Jawa Barat,1800,1600,88,80,78,2900,87,Tinggi,3780
+Surabaya,Jawa Timur,150,1700,85,78,72,4200,88,Tinggi,315
