@@ -49,8 +49,8 @@ class AppServiceProvider extends ServiceProvider
             return;
         }
 
-        // Sudah ada preset → skip (tidak perlu seed ulang)
-        if (Analysis::where('seeded_by_admin', true)->exists()) {
+        // Sudah ada 5 preset → skip (tidak perlu seed ulang)
+        if (Analysis::where('seeded_by_admin', true)->count() >= 5) {
             return;
         }
 
@@ -67,7 +67,7 @@ class AppServiceProvider extends ServiceProvider
         /** @var ScientificCalculationService $calc */
         $calc = $this->app->make(ScientificCalculationService::class);
 
-        // ── 4 Wilayah Pesisir Jawa Tengah Rawan Abrasi ───────────────────
+        // ── 5 Wilayah Pesisir Jawa Tengah Rawan Abrasi ───────────────────
         $regions = [
 
             // Sayung-Bedono, Demak — paling kritis, kehilangan ±5 ha/tahun
@@ -125,6 +125,20 @@ class AppServiceProvider extends ServiceProvider
                 'dominant_species'   => 'Sonneratia alba',
                 'soil_type'          => 'mineral',
             ],
+
+            // Pekalongan-Tirto, Pekalongan — banjir rob sangat parah & abrasi kritis
+            [
+                'region_name'        => 'Pekalongan-Tirto',
+                'province'           => 'Jawa Tengah',
+                'area_size'          => 185.0,
+                'rainfall'           => 2400,
+                'abrasion_level'     => 5,
+                'flood_risk'         => 5,
+                'mangrove_loss'      => 74,
+                'population_density' => 4200,
+                'dominant_species'   => 'Rhizophora mucronata',
+                'soil_type'          => 'mineral',
+            ],
         ];
 
         foreach ($regions as $data) {
@@ -174,6 +188,9 @@ class AppServiceProvider extends ServiceProvider
                 ],
                 'Randusanga Kulon' => [
                     'temp' => 29, 'desc' => 'Berawan', 'wave' => 1.1, 'water_temp' => 28, 'tide' => 0.7
+                ],
+                'Tirto' => [
+                    'temp' => 27, 'desc' => 'Hujan Lebat', 'wave' => 1.5, 'water_temp' => 28, 'tide' => 0.9
                 ],
             ];
 

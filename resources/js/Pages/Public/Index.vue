@@ -552,9 +552,10 @@ const mapLayers = reactive({
 });
 
 const navItems = [
-  { id: "home",     label: "Beranda",    href: "#home"     },
-  { id: "workflow", label: "Alur Kerja", href: "#workflow" },
-  { id: "cta",      label: "Mulai",      href: "#cta"      },
+  { id: "home",        label: "Beranda",    href: "/"            },
+  { id: "realtime",    label: "Realtime",   href: "/realtime"    },
+  { id: "compare",     label: "Bandingkan", href: "/compare"     },
+  { id: "methodology", label: "Metodologi", href: "/methodology" },
 ];
 
 const features = [

@@ -41,6 +41,22 @@ class PublicController extends Controller
         ]);
     }
 
+    public function methodology(): Response
+    {
+        return Inertia::render('Public/Methodology');
+    }
+
+    public function compare(): Response
+    {
+        $analyses = \App\Models\Analysis::query()
+            ->where('seeded_by_admin', true)
+            ->get();
+
+        return Inertia::render('Public/Compare', [
+            'analyses' => $analyses,
+        ]);
+    }
+
     /**
      * Algoritma pencocokan nama wilayah yang sangat fleksibel (Fuzzy Matching)
      * Menghubungkan nama wilayah analisis (misal: Sayung-Bedono) dengan nama wilayah di snapshot BMKG (misal: Bedono)

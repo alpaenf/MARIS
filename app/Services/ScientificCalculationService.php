@@ -63,6 +63,14 @@ class ScientificCalculationService
         // ── STEP 6: DPSIR Framework Mapping ───────────────────
         $dpsir = $this->buildDpsirPayload($data, $climateRisk, $carbonResult, $priority);
 
+        // ── STEP 7: MCRI (MARIS Coastal Resilience Index) [NEW v2.0] ──
+        // Mengukur kapasitas ketahanan ekosistem mangrove pesisir
+        $mcri = $this->computeMCRI($mcvi, $carbonResult, $data);
+
+        // ── STEP 8: BCEVI (Blue Carbon Economic Valuation Index) [NEW v2.0] ──
+        // Valuasi ekonomi cadangan karbon biru sebagai aset lingkungan
+        $bcevi = $this->computeBCEVI($carbonResult['total'], $data);
+
         return [
             // IPCC AR6 Pillars
             'hazard_score'         => round($hazard, 2),
@@ -73,6 +81,9 @@ class ScientificCalculationService
             'mcvi'                 => round($mcvi, 2),
             'mrps'                 => round($mrps, 2),
             'restoration_priority' => $priority,
+            // MARIS 2.0 New Indices
+            'mcri'                 => round($mcri, 4),
+            'bcevi'                => $bcevi,
             // Carbon Accounting
             'carbon_agb'           => round($carbonResult['agb'], 2),
             'carbon_bgb'           => round($carbonResult['bgb'], 2),
@@ -332,5 +343,134 @@ class ScientificCalculationService
     public static function availableSpecies(): array
     {
         return array_keys(self::SPECIES_COEFFICIENTS);
+    }
+
+    // =========================================================
+    // MCRI: MARIS COASTAL RESILIENCE INDEX [NEW v2.0]
+    //
+    // Mengukur kapasitas ketahanan (resilience) ekosistem mangrove
+    // pesisir terhadap perubahan iklim. Berbeda dari MCVI yang
+    // mengukur kerentanan, MCRI mengukur kemampuan bertahan.
+    //
+    // Formula: MCRI = (1 - MCVI/100) × (C_actual/C_max) × RSR
+    //
+    // Dimana:
+    //   MCVI     = MARIS Climate Vulnerability Index
+    //   C_actual = Cadangan karbon aktual
+    //   C_max    = Cadangan karbon maksimum potensial
+    //   RSR      = Restoration Success Rate (0.7-1.0)
+    //
+    // Interpretasi:
+    //   MCRI > 0.7  → Resilient (ekosistem tangguh)
+    //   MCRI 0.4-0.7 → Moderately resilient
+    //   MCRI < 0.4  → Fragile (rapuh, butuh intervensi)
+    //
+    // Referensi: Alongi (2008) — Mangrove forests: resilience,
+    // protection from tsunamis, and responses to global climate change
+    // =========================================================
+    public function computeMCRI(float $mcvi, array $carbonResult, array $data): float
+    {
+        // Inverse vulnerability → resilience capacity (0-1)
+        $resilienceCapacity = 1 - ($mcvi / 100);
+
+        // Carbon efficiency ratio (0-1)
+        // Seberapa besar karbon yang masih tersimpan vs potensi maksimum
+        $species  = $data['dominant_species'] ?? 'default';
+        $soilType = $data['soil_type'] ?? 'mineral';
+        $area     = (float) $data['area_size'];
+        $coeff    = self::SPECIES_COEFFICIENTS[$species] ?? self::SPECIES_COEFFICIENTS['default'];
+        $socKey   = 'soc_' . $soilType;
+        $maxCarbon = ($coeff['agb'] + $coeff['bgb'] + $coeff[$socKey]) * $area;
+        $carbonEfficiency = $maxCarbon > 0 ? ($carbonResult['total'] / $maxCarbon) : 0;
+
+        // Restoration Success Rate (RSR)
+        // Estimasi berdasarkan area (area kecil < 100ha = lebih rentan)
+        // dan kehilangan mangrove (> 60% = pemulihan lebih sulit)
+        $lossRate = (float) ($data['mangrove_loss'] ?? 0) / 100;
+        $rsr = 1.0;
+        if ($area < 100) $rsr -= 0.15;
+        if ($lossRate > 0.6) $rsr -= 0.15;
+        if ($lossRate > 0.8) $rsr -= 0.10;
+        $rsr = max(0.5, $rsr);
+
+        return max(0, min(1, $resilienceCapacity * $carbonEfficiency * $rsr));
+    }
+
+    // =========================================================
+    // BCEVI: BLUE CARBON ECONOMIC VALUATION INDEX [NEW v2.0]
+    //
+    // Menghitung valuasi ekonomi cadangan karbon biru sebagai
+    // aset lingkungan berdasarkan harga pasar karbon sukarela.
+    //
+    // Formula:
+    //   BCEVI = Σ [C_total × 3.67 × P_carbon × (1-r)^t] untuk t=1..10
+    //
+    // Dimana:
+    //   C_total  = Total cadangan karbon (ton C)
+    //   3.67     = Faktor konversi C → CO₂
+    //   P_carbon = Harga karbon per ton CO₂e (USD)
+    //   r        = Discount rate (3% — World Bank recommendation)
+    //   t        = Tahun proyeksi
+    //
+    // Referensi:
+    //   - Voluntary Carbon Market 2024 Report (Ecosystem Marketplace)
+    //   - World Bank: State and Trends of Carbon Pricing 2024
+    // =========================================================
+    public function computeBCEVI(float $carbonTotal, array $data): array
+    {
+        $co2Equivalent = $carbonTotal * 3.67;
+        $carbonPriceUsd = 12.0;  // USD per ton CO₂e (VCM average 2024)
+        $discountRate = 0.03;    // 3% annual discount rate
+        $projectionYears = 10;
+
+        // Net Present Value (NPV) over projection horizon
+        $npvUsd = 0;
+        $yearlyBreakdown = [];
+        for ($t = 1; $t <= $projectionYears; $t++) {
+            $discountedValue = $co2Equivalent * $carbonPriceUsd * pow(1 - $discountRate, $t);
+            $npvUsd += $discountedValue;
+            $yearlyBreakdown[] = [
+                'year'      => date('Y') + $t,
+                'value_usd' => round($discountedValue, 0),
+            ];
+        }
+
+        // Rupiah conversion (Rp 15.000 / USD)
+        $exchangeRate = 15000;
+        $npvIdr = $npvUsd * $exchangeRate;
+
+        // Annual carbon credit potential (if ecosystem maintained)
+        $annualCreditUsd = $co2Equivalent * $carbonPriceUsd;
+        $annualCreditIdr = $annualCreditUsd * $exchangeRate;
+
+        return [
+            'co2_equivalent'      => round($co2Equivalent, 1),
+            'carbon_price_usd'    => $carbonPriceUsd,
+            'annual_value_usd'    => round($annualCreditUsd, 0),
+            'annual_value_idr'    => round($annualCreditIdr, 0),
+            'npv_10yr_usd'        => round($npvUsd, 0),
+            'npv_10yr_idr'        => round($npvIdr, 0),
+            'npv_10yr_formatted'  => $this->formatRupiah($npvIdr),
+            'annual_formatted'    => $this->formatRupiah($annualCreditIdr),
+            'discount_rate'       => $discountRate * 100 . '%',
+            'projection_years'    => $projectionYears,
+        ];
+    }
+
+    /**
+     * Format angka Rupiah ke string yang mudah dibaca.
+     */
+    private function formatRupiah(float $amount): string
+    {
+        if ($amount >= 1_000_000_000_000) {
+            return 'Rp ' . number_format($amount / 1_000_000_000_000, 2) . ' Triliun';
+        }
+        if ($amount >= 1_000_000_000) {
+            return 'Rp ' . number_format($amount / 1_000_000_000, 2) . ' Miliar';
+        }
+        if ($amount >= 1_000_000) {
+            return 'Rp ' . number_format($amount / 1_000_000, 1) . ' Juta';
+        }
+        return 'Rp ' . number_format($amount, 0, ',', '.');
     }
 }
