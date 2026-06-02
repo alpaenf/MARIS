@@ -26,7 +26,7 @@
       </div>
 
       <!-- ══ Main Content ══════════════════════════════════════════════ -->
-      <div class="mx-auto max-w-7xl px-6 space-y-8 pb-12">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 space-y-8 pb-12">
 
         <!-- Region Selection Toggles -->
         <div class="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-card">
@@ -132,15 +132,15 @@
             </h2>
 
             <div class="overflow-x-auto rounded-2xl border border-outline-variant">
-              <table class="min-w-full text-left text-xs">
+              <table class="min-w-[680px] text-left text-xs">
                 <thead class="bg-surface-container font-bold text-on-surface-variant uppercase tracking-wider">
                   <tr>
                     <th class="px-4 py-3">Metrik Indikator</th>
                     <th v-for="(regionName, idx) in selectedRegions" :key="idx" 
-                      class="px-4 py-3 border-l border-outline-variant">
+                      class="px-4 py-3 border-l border-outline-variant whitespace-normal">
                       <div class="flex items-center gap-1.5">
                         <span class="inline-block h-2 w-2 rounded-full" :style="{ backgroundColor: getRegionColor(idx) }"></span>
-                        {{ regionName }}
+                        <span class="break-words">{{ regionName }}</span>
                       </div>
                     </th>
                   </tr>
@@ -153,7 +153,7 @@
                       <span class="text-[9px] text-on-surface-variant font-normal">Tekanan abrasi & risiko banjir</span>
                     </td>
                     <td v-for="data in selectedRegionFullData" :key="data.region_name" class="px-4 py-3 border-l border-outline-variant font-bold">
-                      {{ data.hazard_score.toFixed(1) }} / 100
+                      {{ formatFixed(data.hazard_score, 1) }} / 100
                     </td>
                   </tr>
                   <!-- MCVI -->
@@ -163,7 +163,7 @@
                       <span class="text-[9px] text-on-surface-variant font-normal">Kerentanan pesisir</span>
                     </td>
                     <td v-for="data in selectedRegionFullData" :key="data.region_name" class="px-4 py-3 border-l border-outline-variant font-bold text-amber-600">
-                      {{ data.mcvi.toFixed(1) }}
+                      {{ formatFixed(data.mcvi, 1) }}
                     </td>
                   </tr>
                   <!-- MRPS -->
@@ -173,7 +173,7 @@
                       <span class="text-[9px] text-on-surface-variant font-normal">Skor prioritas restorasi</span>
                     </td>
                     <td v-for="data in selectedRegionFullData" :key="data.region_name" class="px-4 py-3 border-l border-outline-variant font-bold text-primary">
-                      {{ data.mrps.toFixed(1) }}
+                      {{ formatFixed(data.mrps, 1) }}
                     </td>
                   </tr>
                   <!-- MCRI -->
@@ -183,7 +183,7 @@
                       <span class="text-[9px] text-on-surface-variant font-normal">Ketahanan mangrove pesisir</span>
                     </td>
                     <td v-for="data in selectedRegionFullData" :key="data.region_name" class="px-4 py-3 border-l border-outline-variant font-bold text-emerald-600">
-                      {{ data.result_payload?.mcri?.toFixed(2) || '0.45' }}
+                      {{ formatFixed(data.result_payload?.mcri, 2, '0.45') }}
                     </td>
                   </tr>
                   <!-- Blue Carbon Stock -->
@@ -212,7 +212,7 @@
                       <span>Spesies Dominan</span>
                       <span class="text-[9px] text-on-surface-variant font-normal">Rehabilitasi optimal</span>
                     </td>
-                    <td v-for="data in selectedRegionFullData" :key="data.region_name" class="px-4 py-3 border-l border-outline-variant italic">
+                    <td v-for="data in selectedRegionFullData" :key="data.region_name" class="px-4 py-3 border-l border-outline-variant italic break-words">
                       {{ data.dominant_species }}
                     </td>
                   </tr>
@@ -350,5 +350,13 @@ const formatCurrency = (val) => {
   if (num >= 1e9) return (num / 1e9).toFixed(2) + ' Miliar';
   if (num >= 1e6) return (num / 1e6).toFixed(2) + ' Juta';
   return num.toLocaleString('id-ID');
+};
+
+const formatFixed = (val, digits, fallback = '–') => {
+  const num = typeof val === 'string' ? parseFloat(val) : val;
+  if (Number.isFinite(num)) {
+    return num.toFixed(digits);
+  }
+  return fallback;
 };
 </script>
