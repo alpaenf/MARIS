@@ -74,7 +74,7 @@
 
         <!-- ── EARLY WARNING SYSTEM (EWS) ALERTS ─────────────────────── -->
         <div v-if="ewsAlerts && ewsAlerts.length > 0" class="rounded-2xl border border-outline-variant bg-surface-container-lowest p-5 shadow-card">
-          <div class="flex items-center gap-2.5 mb-4">
+          <div class="flex flex-wrap items-center gap-2.5 mb-4">
             <span class="relative flex h-3 w-3">
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
               <span class="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
@@ -84,15 +84,15 @@
           
           <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
             <div v-for="alert in filteredEwsAlerts" :key="alert.region" 
-              class="rounded-xl border p-4 transition-all hover:shadow-md flex flex-col justify-between"
+              class="rounded-xl border p-4 transition-all hover:shadow-md flex flex-col justify-between w-full min-w-0"
               :class="alertCardClass(alert.code?.toLowerCase())">
               <div>
-                <div class="flex items-start justify-between gap-2 mb-2">
+                <div class="flex flex-wrap items-start justify-between gap-2 mb-2">
                   <div class="min-w-0 flex-1">
                     <div class="text-[8px] font-extrabold uppercase tracking-wider text-neutral-600">Wilayah Pesisir</div>
                     <h3 class="font-black text-xs truncate text-black">{{ alert.region }}</h3>
                   </div>
-                  <span class="rounded-full px-1.5 py-0.5 text-[8px] font-black border uppercase tracking-wider whitespace-nowrap shadow-sm"
+                  <span class="rounded-full px-1.5 py-0.5 text-[8px] font-black border uppercase tracking-wider whitespace-nowrap shadow-sm shrink-0"
                     :class="alertBadgeClass(alert.code?.toLowerCase())">
                     {{ alert.code === 'NORMAL' ? 'Aman' : alert.code === 'SIAGA_3' ? 'Siaga 3' : alert.code === 'SIAGA_2' ? 'Siaga 2' : 'Siaga 1' }}
                   </span>
@@ -128,7 +128,7 @@
               <div class="mt-2 pt-2 border-t border-black/10 text-[9px] leading-relaxed">
                 <strong class="block mb-1 text-black font-extrabold">Rekomendasi BNPB:</strong>
                 <ul class="list-disc list-inside space-y-0.5 text-neutral-950 font-bold">
-                  <li v-for="(rec, rIdx) in alert.recommendations" :key="rIdx" class="truncate" :title="rec">{{ rec }}</li>
+                  <li v-for="(rec, rIdx) in alert.recommendations" :key="rIdx" class="break-words" :title="rec">{{ rec }}</li>
                 </ul>
               </div>
             </div>

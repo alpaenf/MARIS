@@ -1,0 +1,1 @@
+import{A as e,O as t,v as n}from"./app-N81uQs3A.js";import{t as r}from"./_plugin-vue_export-helper-BDNMzG2s.js";var i={},a={class:`min-h-screen bg-background text-on-surface antialiased`};function o(r,i){return t(),n(`div`,a,[e(r.$slots,`default`)])}var s=r(i,[[`render`,o]]);export{s as t};
