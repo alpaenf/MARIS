@@ -3,8 +3,8 @@
     <div class="space-y-8">
 
       <!-- ══ Page Header ════════════════════════════ -->
-      <div class="border-b border-outline-variant bg-surface px-6 py-5">
-        <div class="mx-auto max-w-7xl flex flex-wrap items-center justify-between gap-4">
+      <div class="border-b border-outline-variant bg-surface px-4 py-5 sm:px-6">
+        <div class="mx-auto max-w-7xl flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <div class="flex items-center gap-2 mb-1">
               <a href="/" class="inline-flex items-center gap-1 text-[10px] font-semibold text-on-surface-variant hover:text-primary transition-colors">
@@ -17,9 +17,9 @@
             <p class="text-[10px] font-semibold uppercase tracking-[0.3em] text-primary">MARIS 2.0 Monitor</p>
             <h1 class="text-2xl font-bold text-on-surface">Intelligence & Climate Forecasting System</h1>
           </div>
-          <div class="flex items-center gap-3">
+          <div class="flex w-full flex-wrap items-center gap-3 sm:w-auto">
             <!-- Live indicator -->
-            <div class="flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1.5 animate-pulse">
+            <div class="flex w-full items-center justify-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1.5 animate-pulse sm:w-auto sm:justify-start">
               <span class="relative flex h-2 w-2">
                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-60"></span>
                 <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
@@ -27,7 +27,7 @@
               <span class="text-[10px] font-bold text-primary uppercase tracking-wide">Predictive Engine Live</span>
             </div>
             <!-- Status -->
-            <div class="rounded-2xl border border-outline-variant bg-surface-container-lowest px-4 py-2 shadow-card">
+            <div class="w-full rounded-2xl border border-outline-variant bg-surface-container-lowest px-4 py-2 shadow-card sm:w-auto">
               <div class="text-[9px] font-bold uppercase tracking-[0.2em] text-on-surface-variant">Update Terakhir</div>
               <div class="mt-0.5 text-xs font-semibold text-on-surface">{{ status?.time ? formatTime(status.time) : 'Belum ada data' }}</div>
               <span class="text-[9px] font-semibold"
@@ -46,27 +46,27 @@
         <div class="rounded-2xl border border-outline-variant bg-surface-container-lowest p-5 shadow-card">
           <div class="text-[10px] font-bold uppercase tracking-[0.25em] text-on-surface-variant mb-4">Filter Data</div>
           <div class="flex flex-wrap items-center gap-4">
-            <div class="flex items-center gap-2">
+            <div class="flex w-full flex-wrap items-center gap-2 sm:w-auto">
               <label class="text-xs font-semibold text-on-surface whitespace-nowrap">Sumber Data</label>
               <select v-model="localFilters.source" @change="applyFilters"
                 class="rounded-xl border border-outline-variant bg-surface-container-low px-3 py-2 text-xs text-on-surface focus:outline-none focus:border-primary">
                 <option v-for="s in sources" :key="s" :value="s">{{ s }}</option>
               </select>
             </div>
-            <div class="flex items-center gap-2">
+            <div class="flex w-full flex-wrap items-center gap-2 sm:w-auto">
               <label class="text-xs font-semibold text-on-surface whitespace-nowrap">Rentang Jam</label>
-              <div class="flex rounded-xl border border-outline-variant overflow-hidden">
+              <div class="flex max-w-full overflow-x-auto rounded-xl border border-outline-variant">
                 <button v-for="h in hourOptions" :key="h"
                   @click="localFilters.hours = h; applyFilters()"
                   :class="[
-                     'px-3 py-2 text-[11px] font-semibold transition-colors',
+                     'shrink-0 px-3 py-2 text-[11px] font-semibold transition-colors',
                      localFilters.hours === h
                        ? 'bg-primary text-on-primary'
                        : 'text-on-surface-variant hover:bg-surface-container bg-surface-container-low'
                    ]">{{ h }}j</button>
               </div>
             </div>
-            <div class="ml-auto text-[11px] text-on-surface-variant font-medium">
+            <div class="w-full text-[11px] text-on-surface-variant font-medium sm:ml-auto sm:w-auto sm:text-right">
               <span class="font-bold text-primary">{{ compareData.length }}</span> wilayah terpantau
             </div>
           </div>

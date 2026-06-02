@@ -24,7 +24,7 @@
             </div>
           </div>
 
-          <!-- Nav Links -->
+          <!-- Nav Links (desktop) -->
           <nav class="hidden text-sm md:flex">
             <a
               v-for="item in navItems"
@@ -41,8 +41,18 @@
             </a>
           </nav>
 
-          <!-- Auth Buttons -->
-          <div class="flex items-center gap-2 text-sm">
+          <!-- Mobile menu toggle -->
+          <button
+            class="md:hidden inline-flex items-center justify-center rounded-full p-2 text-white/90 transition-colors"
+            :class="isScrolled ? 'text-on-surface-variant hover:bg-surface-container-high' : 'hover:bg-white/10'"
+            @click="mobileOpen = !mobileOpen"
+            aria-label="Buka menu"
+          >
+            <span class="material-symbols-outlined">menu</span>
+          </button>
+
+          <!-- Auth Buttons (desktop) -->
+          <div class="hidden md:flex items-center gap-2 text-sm">
             <a
               class="rounded-full border px-4 py-2 font-medium transition-all duration-300"
               :class="isScrolled 
@@ -65,6 +75,70 @@
         </div>
       </div>
     </header>
+
+    <!-- ── MOBILE MENU ── -->
+    <Transition
+      enter-active-class="transition-opacity duration-200 ease-out"
+      enter-from-class="opacity-0"
+      enter-to-class="opacity-100"
+      leave-active-class="transition-opacity duration-150 ease-in"
+      leave-from-class="opacity-100"
+      leave-to-class="opacity-0"
+    >
+      <div v-if="mobileOpen" class="fixed inset-0 z-40 md:hidden" @click="mobileOpen = false">
+        <div class="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
+        <div
+          class="absolute left-4 right-4 top-20 rounded-3xl border border-outline-variant bg-surface p-4 shadow-card"
+          @click.stop
+        >
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <img src="/logo.png" alt="MARIS Logo" class="h-8 w-8 object-contain" />
+              <div class="text-sm font-bold text-on-surface">MARIS</div>
+            </div>
+            <button
+              class="rounded-full p-1.5 text-on-surface-variant hover:bg-surface-container"
+              @click="mobileOpen = false"
+              aria-label="Tutup menu"
+            >
+              <span class="material-symbols-outlined text-lg">close</span>
+            </button>
+          </div>
+
+          <nav class="mt-4 grid gap-1 text-sm">
+            <a
+              v-for="item in navItems"
+              :key="item.id"
+              :href="item.href"
+              class="rounded-2xl px-4 py-3 font-semibold transition-colors"
+              :class="activeSection === item.id
+                ? 'bg-primary text-on-primary'
+                : 'text-on-surface-variant hover:bg-surface-container'"
+              @click="mobileOpen = false"
+            >
+              {{ item.label }}
+            </a>
+          </nav>
+
+          <div class="mt-4 grid gap-2 text-sm">
+            <a
+              class="rounded-2xl border border-outline-variant px-4 py-3 text-center font-semibold text-on-surface-variant"
+              href="/login"
+              @click="mobileOpen = false"
+            >
+              Masuk
+            </a>
+            <a
+              class="rounded-2xl bg-primary px-4 py-3 text-center font-semibold text-on-primary"
+              href="/register"
+              @click="mobileOpen = false"
+            >
+              Daftar
+            </a>
+          </div>
+        </div>
+      </div>
+    </Transition>
 
     <main>
          <!-- ── 1. HERO ── -->
@@ -560,6 +634,7 @@ const props = defineProps({
 });
 
 const isScrolled = ref(false);
+const mobileOpen = ref(false);
 const handleScroll = () => {
   isScrolled.value = window.scrollY > 20;
 };
