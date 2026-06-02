@@ -76,8 +76,8 @@
               </p>
 
               <!-- Custom SVG Polar Chart -->
-              <div class="relative flex justify-center py-4 bg-surface rounded-2xl border border-outline-variant">
-                <svg width="220" height="220" viewBox="0 0 220 220" class="overflow-visible">
+              <div class="relative flex justify-center py-4 bg-surface rounded-2xl border border-outline-variant overflow-hidden">
+                <svg viewBox="0 0 220 220" preserveAspectRatio="xMidYMid meet" class="w-full max-w-[240px] sm:max-w-[260px] h-auto">
                   <!-- Concentric circles for guide -->
                   <circle cx="110" cy="110" r="30" fill="none" stroke="currentColor" stroke-width="0.5" class="text-outline/20" stroke-dasharray="2,2"/>
                   <circle cx="110" cy="110" r="60" fill="none" stroke="currentColor" stroke-width="0.5" class="text-outline/25" stroke-dasharray="2,2"/>
@@ -132,12 +132,12 @@
             </h2>
 
             <div class="overflow-x-auto rounded-2xl border border-outline-variant">
-              <table class="min-w-[680px] text-left text-xs">
+              <table class="min-w-[640px] text-left text-[11px] sm:text-xs">
                 <thead class="bg-surface-container font-bold text-on-surface-variant uppercase tracking-wider">
                   <tr>
-                    <th class="px-4 py-3">Metrik Indikator</th>
+                    <th class="px-3 py-3 sm:px-4">Metrik Indikator</th>
                     <th v-for="(regionName, idx) in selectedRegions" :key="idx" 
-                      class="px-4 py-3 border-l border-outline-variant whitespace-normal">
+                      class="px-3 py-3 border-l border-outline-variant whitespace-normal sm:px-4">
                       <div class="flex items-center gap-1.5">
                         <span class="inline-block h-2 w-2 rounded-full" :style="{ backgroundColor: getRegionColor(idx) }"></span>
                         <span class="break-words">{{ regionName }}</span>
@@ -148,71 +148,71 @@
                 <tbody class="divide-y divide-outline-variant">
                   <!-- Hazard -->
                   <tr class="hover:bg-surface-container-low transition-colors">
-                    <td class="px-4 py-3 font-semibold text-on-surface flex flex-col">
+                    <td class="px-3 py-3 font-semibold text-on-surface flex flex-col sm:px-4">
                       <span>Hazard Score</span>
                       <span class="text-[9px] text-on-surface-variant font-normal">Tekanan abrasi & risiko banjir</span>
                     </td>
-                    <td v-for="data in selectedRegionFullData" :key="data.region_name" class="px-4 py-3 border-l border-outline-variant font-bold">
+                    <td v-for="data in selectedRegionFullData" :key="data.region_name" class="px-3 py-3 border-l border-outline-variant font-bold sm:px-4">
                       {{ formatFixed(data.hazard_score, 1) }} / 100
                     </td>
                   </tr>
                   <!-- MCVI -->
                   <tr class="hover:bg-surface-container-low transition-colors">
-                    <td class="px-4 py-3 font-semibold text-on-surface flex flex-col">
+                    <td class="px-3 py-3 font-semibold text-on-surface flex flex-col sm:px-4">
                       <span>Vulnerability (MCVI)</span>
                       <span class="text-[9px] text-on-surface-variant font-normal">Kerentanan pesisir</span>
                     </td>
-                    <td v-for="data in selectedRegionFullData" :key="data.region_name" class="px-4 py-3 border-l border-outline-variant font-bold text-amber-600">
+                    <td v-for="data in selectedRegionFullData" :key="data.region_name" class="px-3 py-3 border-l border-outline-variant font-bold text-amber-600 sm:px-4">
                       {{ formatFixed(data.mcvi, 1) }}
                     </td>
                   </tr>
                   <!-- MRPS -->
                   <tr class="hover:bg-surface-container-low transition-colors">
-                    <td class="px-4 py-3 font-semibold text-on-surface flex flex-col">
+                    <td class="px-3 py-3 font-semibold text-on-surface flex flex-col sm:px-4">
                       <span>Restoration Priority (MRPS)</span>
                       <span class="text-[9px] text-on-surface-variant font-normal">Skor prioritas restorasi</span>
                     </td>
-                    <td v-for="data in selectedRegionFullData" :key="data.region_name" class="px-4 py-3 border-l border-outline-variant font-bold text-primary">
+                    <td v-for="data in selectedRegionFullData" :key="data.region_name" class="px-3 py-3 border-l border-outline-variant font-bold text-primary sm:px-4">
                       {{ formatFixed(data.mrps, 1) }}
                     </td>
                   </tr>
                   <!-- MCRI -->
                   <tr class="hover:bg-surface-container-low transition-colors">
-                    <td class="px-4 py-3 font-semibold text-on-surface flex flex-col">
+                    <td class="px-3 py-3 font-semibold text-on-surface flex flex-col sm:px-4">
                       <span>Ecosystem Resilience (MCRI)</span>
                       <span class="text-[9px] text-on-surface-variant font-normal">Ketahanan mangrove pesisir</span>
                     </td>
-                    <td v-for="data in selectedRegionFullData" :key="data.region_name" class="px-4 py-3 border-l border-outline-variant font-bold text-emerald-600">
+                    <td v-for="data in selectedRegionFullData" :key="data.region_name" class="px-3 py-3 border-l border-outline-variant font-bold text-emerald-600 sm:px-4">
                       {{ formatFixed(data.result_payload?.mcri, 2, '0.45') }}
                     </td>
                   </tr>
                   <!-- Blue Carbon Stock -->
                   <tr class="hover:bg-surface-container-low transition-colors">
-                    <td class="px-4 py-3 font-semibold text-on-surface flex flex-col">
+                    <td class="px-3 py-3 font-semibold text-on-surface flex flex-col sm:px-4">
                       <span>Potensi Karbon Biru</span>
                       <span class="text-[9px] text-on-surface-variant font-normal">Total simpanan karbon</span>
                     </td>
-                    <td v-for="data in selectedRegionFullData" :key="data.region_name" class="px-4 py-3 border-l border-outline-variant font-bold text-emerald-700">
+                    <td v-for="data in selectedRegionFullData" :key="data.region_name" class="px-3 py-3 border-l border-outline-variant font-bold text-emerald-700 sm:px-4">
                       {{ formatVal(data.carbon_potential) }} ton C
                     </td>
                   </tr>
                   <!-- BCEVI (Economic Value) -->
                   <tr class="hover:bg-surface-container-low transition-colors">
-                    <td class="px-4 py-3 font-semibold text-on-surface flex flex-col">
+                    <td class="px-3 py-3 font-semibold text-on-surface flex flex-col sm:px-4">
                       <span>Valuasi Ekonomi (BCEVI)</span>
                       <span class="text-[9px] text-on-surface-variant font-normal">Blue Carbon Economic Valuation</span>
                     </td>
-                    <td v-for="data in selectedRegionFullData" :key="data.region_name" class="px-4 py-3 border-l border-outline-variant font-bold text-teal-600">
+                    <td v-for="data in selectedRegionFullData" :key="data.region_name" class="px-3 py-3 border-l border-outline-variant font-bold text-teal-600 sm:px-4">
                       Rp {{ formatCurrency(data.result_payload?.bcevi?.total_economic_value_idr || data.carbon_potential * 3.67 * 12 * 15000) }}
                     </td>
                   </tr>
                   <!-- Species Dominant -->
                   <tr class="hover:bg-surface-container-low transition-colors">
-                    <td class="px-4 py-3 font-semibold text-on-surface flex flex-col">
+                    <td class="px-3 py-3 font-semibold text-on-surface flex flex-col sm:px-4">
                       <span>Spesies Dominan</span>
                       <span class="text-[9px] text-on-surface-variant font-normal">Rehabilitasi optimal</span>
                     </td>
-                    <td v-for="data in selectedRegionFullData" :key="data.region_name" class="px-4 py-3 border-l border-outline-variant italic break-words">
+                    <td v-for="data in selectedRegionFullData" :key="data.region_name" class="px-3 py-3 border-l border-outline-variant italic break-words sm:px-4">
                       {{ data.dominant_species }}
                     </td>
                   </tr>
