@@ -3,8 +3,8 @@
     <div class="space-y-8">
 
       <!-- ══ Page Header ════════════════════════════ -->
-      <div class="border-b border-outline-variant bg-surface px-6 py-5">
-        <div class="mx-auto max-w-5xl flex flex-wrap items-center justify-between gap-4">
+      <div class="border-b border-outline-variant bg-surface px-4 py-5 sm:px-6">
+        <div class="mx-auto max-w-5xl flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <div class="flex items-center gap-2 mb-1">
               <a href="/" class="inline-flex items-center gap-1 text-[10px] font-semibold text-on-surface-variant hover:text-primary transition-colors">
@@ -17,8 +17,8 @@
             <p class="text-[10px] font-semibold uppercase tracking-[0.3em] text-primary">Kredibilitas Ilmiah & Landasan Teori</p>
             <h1 class="text-2xl font-bold text-on-surface">Metodologi & Kerangka Sains MARIS 2.0</h1>
           </div>
-          <div class="flex items-center gap-3">
-            <span class="rounded-full bg-emerald-100 dark:bg-emerald-950/20 px-3 py-1 text-xs font-bold text-emerald-800 dark:text-emerald-300">
+          <div class="flex w-full items-center gap-3 sm:w-auto">
+            <span class="w-full rounded-full bg-emerald-100 dark:bg-emerald-950/20 px-3 py-1 text-center text-xs font-bold text-emerald-800 dark:text-emerald-300 sm:w-auto">
               IPCC AR6 & WMO Standardized
             </span>
           </div>
