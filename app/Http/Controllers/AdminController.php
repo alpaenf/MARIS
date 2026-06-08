@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\Dataset;
+use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -36,10 +39,40 @@ class AdminController extends Controller
             'total_carbon' => round(Analysis::sum('carbon_potential'), 2)
         ];
 
+        // 4. Fetch Datasets
+        $datasets = Dataset::latest()->get()->map(function ($ds) {
+            return [
+                'id' => $ds->id,
+                'name' => $ds->name,
+                'type' => $ds->type,
+                'records' => $ds->records,
+                'date' => $ds->created_at->format('d M Y')
+            ];
+        });
+
+        // 5. Calculate real TrendBars
+        $months = [];
+        for ($i = 4; $i >= 0; $i--) {
+            $date = now()->subMonthsNoOverflow($i);
+            $months[] = [
+                'label' => Carbon::parse($date)->locale('id')->isoFormat('MMM'),
+                'count' => Analysis::whereYear('created_at', $date->year)->whereMonth('created_at', $date->month)->count()
+            ];
+        }
+        $maxCount = collect($months)->max('count') ?: 1;
+        $trendBars = collect($months)->map(function ($item) use ($maxCount) {
+            return [
+                'label' => $item['label'],
+                'height' => round(($item['count'] / $maxCount) * 90 + 10) . '%' // min 10% height
+            ];
+        });
+
         return Inertia::render('Admin/Index', [
             'initialUsers' => $users,
             'initialAnalyses' => $analyses,
             'stats' => $stats,
+            'datasets' => $datasets,
+            'trendBars' => $trendBars,
         ]);
     }
 
@@ -196,6 +229,47 @@ class AdminController extends Controller
         }
 
         $user->delete();
+        return redirect()->back();
+    }
+
+    public function storeDataset(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|file|mimes:csv,txt,json|max:10240', // max 10MB
+        ]);
+
+        $file = $request->file('file');
+        $extension = $file->getClientOriginalExtension();
+        $path = $file->store('datasets', 'public');
+        
+        $recordsCount = 0;
+        if (in_array($extension, ['csv', 'txt'])) {
+            $lines = file($file->getRealPath());
+            $recordsCount = count($lines) - 1; // minus header
+        } elseif ($extension === 'json') {
+            $json = json_decode(file_get_contents($file->getRealPath()), true);
+            if (is_array($json)) {
+                $recordsCount = count($json);
+            }
+        }
+
+        Dataset::create([
+            'name' => $file->getClientOriginalName(),
+            'type' => $extension === 'json' ? 'Parameter (JSON)' : 'Geospasial (CSV)',
+            'records' => max(0, $recordsCount),
+            'file_path' => $path,
+            'file_size' => $file->getSize(),
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function destroyDataset(Dataset $dataset)
+    {
+        if (Storage::disk('public')->exists($dataset->file_path)) {
+            Storage::disk('public')->delete($dataset->file_path);
+        }
+        $dataset->delete();
         return redirect()->back();
     }
 }

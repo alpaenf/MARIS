@@ -20,6 +20,14 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
+  climateTrend: {
+    type: Array,
+    default: () => [],
+  },
+  carbonTrend: {
+    type: Array,
+    default: () => [],
+  },
 });
 
 const kpis = computed(() => [
@@ -128,12 +136,14 @@ const kpis = computed(() => [
           subtitle="Perubahan risiko abrasi dan banjir"
           left-label="Awal Bulan Ini"
           right-label="Hari Ini"
+          :data-values="climateTrend"
         />
         <TrendChartCard
           title="Carbon Trend"
           subtitle="Estimasi potensi karbon tersimpan"
           left-label="Awal Bulan Ini"
           right-label="Hari Ini"
+          :data-values="carbonTrend"
         />
       </section>
 

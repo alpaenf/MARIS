@@ -201,7 +201,7 @@
                 <span class="material-symbols-outlined text-sm leading-none">verified_user</span>
               </button>
               <button 
-                @click="removeDataset(ds.name)" 
+                @click="removeDataset(ds.id)" 
                 class="rounded-full p-1.5 text-error hover:bg-error/10 hover:scale-105 active:scale-95 transition-all ml-auto inline-flex items-center justify-center" 
                 title="Hapus Dataset"
               >
@@ -396,6 +396,8 @@ const props = defineProps({
   initialUsers: Array,
   initialAnalyses: Array,
   stats: Object,
+  datasets: Array,
+  trendBars: Array,
 });
 
 const activeTab = ref("dashboard");
@@ -417,16 +419,7 @@ const systemStats = computed(() => [
   { label: "Potensi Karbon", value: props.stats?.total_carbon ?? 0, unit: "tCO₂e", desc: "Potensi biru teridentifikasi" },
 ]);
 
-const trendBars = computed(() => {
-  const d = new Date();
-  const heights = ["40%", "55%", "70%", "85%", "95%"];
-  const res = [];
-  for (let i = 4; i >= 0; i--) {
-    const past = new Date(d.getFullYear(), d.getMonth() - i, 1);
-    res.push({ label: past.toLocaleString('id-ID', { month: 'short' }), height: heights[4 - i] });
-  }
-  return res;
-});
+const trendBars = computed(() => props.trendBars ?? []);
 
 const recentActivities = [
   { user: "System", action: "melakukan inisialisasi dashboard administrator", time: "Baru saja" },
@@ -475,26 +468,27 @@ const handleImportCSV = (e) => {
   });
 };
 
-const datasets = ref([
-  { name: `Curah Hujan Pantura ${new Date().getFullYear()}.json`, type: "Cuaca", records: "1,200", date: new Date().toLocaleDateString("id-ID", { day: '2-digit', month: 'long', year: 'numeric' }) },
-  { name: "Data Abrasi Jateng.csv", type: "Abrasi", records: "450", date: new Date(Date.now() - 172800000).toLocaleDateString("id-ID", { day: '2-digit', month: 'long', year: 'numeric' }) },
-]);
+const datasets = computed(() => props.datasets ?? []);
 
 const uploadDataset = (e) => {
   const file = e.target.files[0];
-  if (file) {
-    datasets.value.push({
-      name: file.name,
-      type: file.name.endsWith('.csv') ? 'Geospasial (CSV)' : 'Parameter (JSON)',
-      records: Math.floor(Math.random() * 500) + 100,
-      date: new Date().toLocaleDateString("id-ID", { day: '2-digit', month: 'short', year: 'numeric' })
-    });
-    alert("Dataset " + file.name + " berhasil diupload dan diproses oleh sistem!");
-  }
+  if (!file) return;
+
+  const formData = new FormData();
+  formData.append('file', file);
+
+  router.post(route('admin.datasets.store'), formData, {
+    onSuccess: () => alert("Dataset " + file.name + " berhasil diupload dan disimpan ke database!"),
+    onError: (err) => alert("Gagal upload dataset: " + (err.file || 'Error tidak diketahui'))
+  });
 };
 
-const removeDataset = (name) => {
-  datasets.value = datasets.value.filter(d => d.name !== name);
+const removeDataset = (id) => {
+  if (confirm("Apakah Anda yakin ingin menghapus dataset ini? File aslinya juga akan terhapus dari server.")) {
+    router.delete(route('admin.datasets.destroy', { dataset: id }), {
+      onSuccess: () => alert("Dataset berhasil dihapus!")
+    });
+  }
 };
 
 // Manajemen Pengguna (Real-time logic linked to AdminController)

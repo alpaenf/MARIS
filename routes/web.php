@@ -196,6 +196,8 @@ Route::middleware(['auth', 'verified', 'role:admin,analis'])->group(function () 
     Route::post('/admin/regions', [\App\Http\Controllers\AdminController::class, 'storeRegion'])->name('admin.regions.store')->middleware('role:admin');
     Route::delete('/admin/regions/{analysis}', [\App\Http\Controllers\AdminController::class, 'destroyRegion'])->name('admin.regions.destroy')->middleware('role:admin');
     Route::post('/admin/regions/import', [\App\Http\Controllers\AdminController::class, 'importCSV'])->name('admin.regions.import')->middleware('role:admin');
+    Route::post('/admin/datasets', [\App\Http\Controllers\AdminController::class, 'storeDataset'])->name('admin.datasets.store')->middleware('role:admin');
+    Route::delete('/admin/datasets/{dataset}', [\App\Http\Controllers\AdminController::class, 'destroyDataset'])->name('admin.datasets.destroy')->middleware('role:admin');
 
     Route::get('/analysis', [AnalysisController::class, 'index'])->name('analysis.index');
     Route::get('/analysis/create', [AnalysisController::class, 'create'])->name('analysis.create');
