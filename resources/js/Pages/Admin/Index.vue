@@ -417,13 +417,16 @@ const systemStats = computed(() => [
   { label: "Potensi Karbon", value: props.stats?.total_carbon ?? 0, unit: "tCO₂e", desc: "Potensi biru teridentifikasi" },
 ]);
 
-const trendBars = [
-  { label: "Jan", height: "40%" },
-  { label: "Feb", height: "55%" },
-  { label: "Mar", height: "70%" },
-  { label: "Apr", height: "85%" },
-  { label: "Mei", height: "95%" },
-];
+const trendBars = computed(() => {
+  const d = new Date();
+  const heights = ["40%", "55%", "70%", "85%", "95%"];
+  const res = [];
+  for (let i = 4; i >= 0; i--) {
+    const past = new Date(d.getFullYear(), d.getMonth() - i, 1);
+    res.push({ label: past.toLocaleString('id-ID', { month: 'short' }), height: heights[4 - i] });
+  }
+  return res;
+});
 
 const recentActivities = [
   { user: "System", action: "melakukan inisialisasi dashboard administrator", time: "Baru saja" },
@@ -472,10 +475,9 @@ const handleImportCSV = (e) => {
   });
 };
 
-// Manajemen Dataset (Real-time storage reactive list)
 const datasets = ref([
-  { name: "Curah Hujan Pantura 2026.json", type: "Cuaca", records: "1,200", date: "28 Mei 2026" },
-  { name: "Data Abrasi Jateng.csv", type: "Abrasi", records: "450", date: "26 Mei 2026" },
+  { name: `Curah Hujan Pantura ${new Date().getFullYear()}.json`, type: "Cuaca", records: "1,200", date: new Date().toLocaleDateString("id-ID", { day: '2-digit', month: 'long', year: 'numeric' }) },
+  { name: "Data Abrasi Jateng.csv", type: "Abrasi", records: "450", date: new Date(Date.now() - 172800000).toLocaleDateString("id-ID", { day: '2-digit', month: 'long', year: 'numeric' }) },
 ]);
 
 const uploadDataset = (e) => {

@@ -126,14 +126,14 @@ const kpis = computed(() => [
         <TrendChartCard
           title="Climate Trend"
           subtitle="Perubahan risiko abrasi dan banjir"
-          left-label="Awal Mei"
-          right-label="Akhir Mei"
+          left-label="Awal Bulan Ini"
+          right-label="Hari Ini"
         />
         <TrendChartCard
           title="Carbon Trend"
           subtitle="Estimasi potensi karbon tersimpan"
-          left-label="Awal Mei"
-          right-label="Akhir Mei"
+          left-label="Awal Bulan Ini"
+          right-label="Hari Ini"
         />
       </section>
 

@@ -34,10 +34,10 @@ const kpis = [
 ];
 
 const recentAnalysis = [
-    { region: 'Demak - Bedono', risk: 82, date: '29 Mei 2026' },
-    { region: 'Pekalongan - Tirto', risk: 71, date: '28 Mei 2026' },
-    { region: 'Semarang - Sayung', risk: 69, date: '28 Mei 2026' },
-    { region: 'Batang - Subah', risk: 62, date: '27 Mei 2026' },
+    { region: 'Demak - Bedono', risk: 82, date: new Date(Date.now() - 86400000 * 0).toLocaleDateString('id-ID', {day: 'numeric', month: 'long', year: 'numeric'}) },
+    { region: 'Pekalongan - Tirto', risk: 71, date: new Date(Date.now() - 86400000 * 1).toLocaleDateString('id-ID', {day: 'numeric', month: 'long', year: 'numeric'}) },
+    { region: 'Semarang - Sayung', risk: 69, date: new Date(Date.now() - 86400000 * 1).toLocaleDateString('id-ID', {day: 'numeric', month: 'long', year: 'numeric'}) },
+    { region: 'Batang - Subah', risk: 62, date: new Date(Date.now() - 86400000 * 2).toLocaleDateString('id-ID', {day: 'numeric', month: 'long', year: 'numeric'}) },
 ];
 
 const priorityRegions = [
@@ -123,14 +123,14 @@ const priorityRegions = [
                 <TrendChartCard
                     title="Climate Trend"
                     subtitle="Perubahan risiko abrasi dan banjir"
-                    left-label="Awal Mei"
-                    right-label="Akhir Mei"
+                    left-label="Awal Bulan Ini"
+                    right-label="Hari Ini"
                 />
                 <TrendChartCard
                     title="Carbon Trend"
                     subtitle="Estimasi potensi karbon tersimpan"
-                    left-label="Awal Mei"
-                    right-label="Akhir Mei"
+                    left-label="Awal Bulan Ini"
+                    right-label="Hari Ini"
                 />
             </section>
 
